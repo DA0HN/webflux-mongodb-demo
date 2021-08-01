@@ -1,5 +1,6 @@
 package me.gabriel.webflux.core.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
  * @since 01/08/2021
  */
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Playlist {
 

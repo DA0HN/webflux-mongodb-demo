@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import me.gabriel.webflux.core.domain.Identity;
 import me.gabriel.webflux.core.domain.Playlist;
 import me.gabriel.webflux.core.ports.PlaylistRepository;
+import me.gabriel.webflux.data.db.mongo.document.PlaylistDocument;
 import me.gabriel.webflux.data.db.mongo.repositories.ReactivePlaylistRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +34,15 @@ public class PlaylistRepositoryAdapter implements PlaylistRepository {
   }
 
   @Override public List<Playlist> findAll() {
-    return null;
+    var list = new ArrayList<Playlist>();
+
+    playlistRepository
+      .findAll()
+      .map(PlaylistDocument::toDomain)
+      .log()
+      .subscribe(list::add);
+
+    return list;
   }
 
 }
