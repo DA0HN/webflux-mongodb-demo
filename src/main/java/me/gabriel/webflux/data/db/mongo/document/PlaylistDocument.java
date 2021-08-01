@@ -1,8 +1,8 @@
 package me.gabriel.webflux.data.db.mongo.document;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -10,11 +10,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @since 01/08/2021
  */
 @Getter
+@Setter
 @Document
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString(callSuper = true)
 public class PlaylistDocument extends BaseDocument {
 
   private String nome;
 
+  public PlaylistDocument(String id, String nome) {
+    super(id);
+    this.nome = nome;
+  }
 }
