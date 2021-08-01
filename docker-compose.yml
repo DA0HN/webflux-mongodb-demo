@@ -1,4 +1,6 @@
 version: "3.8"
+# https://www.bmc.com/blogs/mongodb-docker-container/
+# https://renatogroffe.medium.com/mongodb-mongo-express-docker-compose-montando-rapidamente-um-ambiente-para-uso-824f25ca6957
 services:
   mongodb:
     image: mongo
