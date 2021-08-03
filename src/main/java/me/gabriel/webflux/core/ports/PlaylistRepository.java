@@ -2,6 +2,8 @@ package me.gabriel.webflux.core.ports;
 
 import me.gabriel.webflux.core.domain.Identity;
 import me.gabriel.webflux.core.domain.Playlist;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -11,8 +13,8 @@ import java.util.List;
  */
 public interface PlaylistRepository {
 
-  Playlist save(Playlist playlist);
-  Playlist findById(Identity identity);
-  Identity deleteById(Identity identity);
-  List<Playlist> findAll();
+  Mono<Playlist> save(Playlist playlist);
+  Mono<Playlist> findById(Identity identity);
+  Mono<Identity> deleteById(Identity identity);
+  Flux<Playlist> findAll();
 }

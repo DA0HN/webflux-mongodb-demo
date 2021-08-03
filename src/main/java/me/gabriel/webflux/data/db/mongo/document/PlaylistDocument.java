@@ -29,6 +29,9 @@ public class PlaylistDocument extends BaseDocument {
   }
 
   public Playlist toDomain() {
-    return new Playlist(new Identity(this.getId()), this.getNome());
+    var playlist = new Playlist();
+    playlist.setIdentity(new Identity(getId()));
+    playlist.setNome(getNome());
+    return playlist;
   }
 }

@@ -1,19 +1,19 @@
 package me.gabriel.webflux.core.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author daohn
  * @since 01/08/2021
  */
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class Playlist {
 
   private Identity identity;
-  private String nome;
-
+  @NonNull private String nome;
 }

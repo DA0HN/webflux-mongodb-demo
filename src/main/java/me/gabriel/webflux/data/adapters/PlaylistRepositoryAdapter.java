@@ -7,9 +7,8 @@ import me.gabriel.webflux.core.ports.PlaylistRepository;
 import me.gabriel.webflux.data.db.mongo.document.PlaylistDocument;
 import me.gabriel.webflux.data.db.mongo.repositories.ReactivePlaylistRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * @author daohn
@@ -21,28 +20,29 @@ public class PlaylistRepositoryAdapter implements PlaylistRepository {
 
   private final ReactivePlaylistRepository playlistRepository;
 
-  @Override public Playlist save(Playlist playlist) {
-    return null;
+  @Override public Mono<Playlist> save(Playlist playlist) {
+    return this.playlistRepository
+      .save(PlaylistDocument.fromDomain(playlist))
+      .map(PlaylistDocument::toDomain)
+      .log();
   }
 
-  @Override public Playlist findById(Identity identity) {
-    return null;
+  @Override public Mono<Playlist> findById(Identity identity) {
+    return this.playlistRepository.findById(identity.getId())
+      .map(PlaylistDocument::toDomain)
+      .log();
   }
 
-  @Override public Identity deleteById(Identity identity) {
-    return null;
+  @Override public Mono<Identity> deleteById(Identity identity) {
+    this.playlistRepository.deleteById(identity.getId());
+    return Mono.just(identity);
   }
 
-  @Override public List<Playlist> findAll() {
-    var list = new ArrayList<Playlist>();
-
-    playlistRepository
+  @Override public Flux<Playlist> findAll() {
+    return this.playlistRepository
       .findAll()
       .map(PlaylistDocument::toDomain)
-      .log()
-      .subscribe(list::add);
-
-    return list;
+      .log();
   }
 
 }
